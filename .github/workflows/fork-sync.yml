@@ -1,0 +1,22 @@
+name: Fork Sync
+
+on:
+  schedule:
+    - cron: 0 0 * * * # runs daily at midnight
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Sync fork
+        uses: CouponsCom/fork-sync@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_repo: 'TheBlackWolfPack/EX-IOExpander' # replace with the upstream repository
+          upstream_branch: 'main' # replace with the upstream branch
+          target_branch: 'main' # replace with the target branch
